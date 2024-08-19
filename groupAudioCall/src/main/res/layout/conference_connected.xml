@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:showIn="@layout/activity_main"
+    tools:context="com.linecorp.planetkit.quickstart.groupAudioCall.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:padding="5dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Room Id: "/>
+
+        <TextView
+            android:id="@+id/tv_room_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dfg"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:padding="5dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Participant count: "/>
+
+        <TextView
+            android:id="@+id/tv_participant_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Audio route"/>
+
+        <RadioGroup
+            android:id="@+id/audio_route_select_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/route_audio_btn_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BlueTooth" />
+
+            <RadioButton
+                android:id="@+id/route_audio_btn_plugged"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Plugged" />
+
+            <RadioButton
+                android:id="@+id/route_audio_btn_handset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Handset" />
+
+            <RadioButton
+                android:id="@+id/route_audio_btn_speaker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Speaker" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_disconnect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:text="Disconnect" />
+
+</LinearLayout>
