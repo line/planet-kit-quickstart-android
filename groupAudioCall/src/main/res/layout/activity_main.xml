@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:keepScreenOn="true">
+
+    <TextView
+        android:id="@+id/connection_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Disconnected"/>
+
+    <include layout="@layout/conference_input"
+        android:id="@+id/conference_input"/>
+
+    <include layout="@layout/conference_connected"
+        android:visibility="gone"
+        android:id="@+id/conference_connected"/>
+
+</LinearLayout>
