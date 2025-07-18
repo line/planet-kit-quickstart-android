@@ -12,7 +12,7 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-package com.linecorp.planetkit.quickstart.groupAudioCall
+package com.linecorp.planetkit.quickstart.common
 
 import android.Manifest
 import android.app.Activity
@@ -23,7 +23,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
 object Permissions {
-    fun checkAllRequirePermissions(context: Context): MutableList<String> {
+    fun checkAudioCallRequirePermissions(context: Context): MutableList<String> {
         val permissions: MutableList<String> = mutableListOf()
 
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO)
@@ -46,6 +46,15 @@ object Permissions {
             && ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS)
             != PackageManager.PERMISSION_GRANTED) {
             permissions.add(Manifest.permission.POST_NOTIFICATIONS)
+        }
+        return permissions
+    }
+
+    fun checkVideoCallRequirePermissions(context: Context): MutableList<String> {
+        val permissions = checkAudioCallRequirePermissions(context)
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.CAMERA)
         }
         return permissions
     }
