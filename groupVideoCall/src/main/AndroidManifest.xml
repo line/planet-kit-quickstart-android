@@ -3,17 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:name="com.linecorp.planetkit.quickstart.groupAudioCall.GroupAudioCallApplication"
+        android:name="com.linecorp.planetkit.quickstart.groupVideoCall.GroupVideoCallApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_dev_launcher"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_dev_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="35">
         <activity
-            android:name="com.linecorp.planetkit.quickstart.groupAudioCall.GroupAudioMainActivity"
-            android:launchMode="singleTop"
+            android:name=".GroupVideoMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,9 +20,12 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".GroupVideoCallActivity"
+            android:launchMode="singleTop"/>
+
         <service
-            android:name="com.linecorp.planetkit.quickstart.groupAudioCall.GroupAudioNotificationService"
+            android:name="com.linecorp.planetkit.quickstart.groupVideoCall.GroupVideoNotificationService"
             android:foregroundServiceType="mediaPlayback|microphone" />
     </application>
-
 </manifest>

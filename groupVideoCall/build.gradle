@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.linecorp.planetkit.quickstart.groupAudioCall'
+    namespace 'com.linecorp.planetkit.quickstart.groupVideoCall'
     compileSdk 35
 
     defaultConfig {
-        applicationId "com.linecorp.planetkit.quickstart.groupAudioCall"
+        applicationId "com.linecorp.planetkit.quickstart.groupVideoCall"
         minSdk 21
         targetSdk 35
         versionCode 1
@@ -44,5 +44,6 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.16.0'
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.activity:activity:1.8.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
 }

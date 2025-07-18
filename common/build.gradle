@@ -1,14 +1,13 @@
 plugins {
-    id 'com.android.application'
+    id "com.android.library"
     id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    namespace 'com.linecorp.planetkit.quickstart.groupAudioCall'
+    namespace 'com.linecorp.planetkit.quickstart.common'
     compileSdk 35
 
     defaultConfig {
-        applicationId "com.linecorp.planetkit.quickstart.groupAudioCall"
         minSdk 21
         targetSdk 35
         versionCode 1
@@ -30,19 +29,8 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures {
-        viewBinding true
-    }
 }
 
 dependencies {
-    implementation project(path: ':common')
-
-    // The PlanetKit SDK resides on Maven Central
-    implementation 'com.linecorp.planetkit:planetkit:6.0.3'
-
     implementation 'androidx.core:core-ktx:1.16.0'
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'com.google.android.material:material:1.12.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 }
