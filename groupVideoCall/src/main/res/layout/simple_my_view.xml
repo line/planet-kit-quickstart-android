@@ -1,0 +1,62 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.linecorp.planetkit.ui.PlanetKitMyView
+        android:id="@+id/my_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:id="@+id/no_video"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#dcdcdc"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_baseline_videocam_off_24" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            android:maxLines="1"
+            android:text="No Video"
+            android:textAlignment="center"
+            app:autoSizeMaxTextSize="22sp"
+            app:autoSizeTextType="uniform" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/video_resume"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#dcdcdc"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp"
+        tools:visibility="gone">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_baseline_videocam_24" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            android:maxLines="1"
+            android:text="Resuming video"
+            android:textAlignment="center"
+            app:autoSizeMaxTextSize="22sp"
+            app:autoSizeTextType="uniform" />
+    </LinearLayout>
+</FrameLayout>

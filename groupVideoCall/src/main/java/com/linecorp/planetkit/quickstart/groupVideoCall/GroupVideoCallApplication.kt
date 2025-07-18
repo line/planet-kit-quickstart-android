@@ -12,14 +12,14 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-package com.linecorp.planetkit.quickstart.groupAudioCall
+package com.linecorp.planetkit.quickstart.groupVideoCall
 
 import android.app.Application
 import android.util.Log
 import com.linecorp.planetkit.PlanetKit
 import com.linecorp.planetkit.quickstart.common.Constants
 
-class GroupAudioCallApplication : Application() {
+class GroupVideoCallApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 

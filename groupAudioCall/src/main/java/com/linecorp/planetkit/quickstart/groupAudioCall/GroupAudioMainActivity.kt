@@ -24,59 +24,55 @@ import com.linecorp.planetkit.PlanetKit
 import com.linecorp.planetkit.PlanetKitConferenceResult
 import com.linecorp.planetkit.PlanetKitStartFailReason
 import com.linecorp.planetkit.audio.PlanetKitAudioRoute
-import com.linecorp.planetkit.quickstart.groupAudioCall.databinding.ActivityMainBinding
+import com.linecorp.planetkit.quickstart.common.Constants
+import com.linecorp.planetkit.quickstart.common.Permissions
+import com.linecorp.planetkit.quickstart.groupAudioCall.databinding.GroupAudioActivityMainBinding
 import com.linecorp.planetkit.session.PlanetKitDisconnectedParam
 import com.linecorp.planetkit.session.conference.ConferenceListener
 import com.linecorp.planetkit.session.conference.PlanetKitConference
 import com.linecorp.planetkit.session.conference.PlanetKitConferenceParam
 import com.linecorp.planetkit.session.conference.PlanetKitConferencePeerListUpdatedParam
 
-class MainActivity : AppCompatActivity() {
+class GroupAudioMainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: GroupAudioActivityMainBinding
     private var mConference: PlanetKitConference? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = GroupAudioActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         binding.conferenceInput.userId.setText(Constants.USER_ID)
         binding.conferenceInput.accessToken.setText(Constants.ACCESS_TOKEN)
-
-
         binding.conferenceInput.btnConnect.setOnClickListener {
-            val requirePermissions = Permissions.checkAllRequirePermissions(this)
+            val requirePermissions = Permissions.checkAudioCallRequirePermissions(this)
             if (requirePermissions.isNotEmpty()) {
                 Permissions.requestPermissions(this, requirePermissions.toTypedArray())
                 return@setOnClickListener
             }
 
             val roomId = binding.conferenceInput.roomId.text.toString()
-            val result = joinConference(roomId)
+            val accessToken = binding.conferenceInput.accessToken.text.toString()
+            val result = joinConference(roomId, accessToken)
             if (result.reason == PlanetKitStartFailReason.NONE) {
                 mConference = result.conference
             }
             else {
                 val message = "Failed: joinConference ${result.reason}"
-                Log.e(Constants.LOG_TAG, message)
+                Log.e(TAG, message)
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show()
             }
         }
 
-        binding.conferenceConnected.btnDisconnect.setOnClickListener {
+        binding.conferenceConnected.btnLeave.setOnClickListener {
             mConference?.leaveConference()
         }
     }
 
-    private fun joinConference(roomId: String): PlanetKitConferenceResult {
-        val accessToken = binding.conferenceInput.accessToken.text.toString()
-        val userId = binding.conferenceInput.userId.text.toString()
-        Log.d(Constants.LOG_TAG, "accessToken=$accessToken")
-
+    private fun joinConference(roomId: String, accessToken: String): PlanetKitConferenceResult {
         val param = PlanetKitConferenceParam.Builder()
-                .myId(userId)
+                .myId(Constants.USER_ID)
                 .roomId(roomId)
                 .myServiceId(Constants.SERVICE_ID)
                 .roomServiceId(Constants.SERVICE_ID)
@@ -90,28 +86,28 @@ class MainActivity : AppCompatActivity() {
                 conference: PlanetKitConference, isVideoHwCodecEnabled: Boolean,
                 isVideoShareModeSupported: Boolean,
         ) {
-            Log.i(Constants.LOG_TAG, "onConnected")
+            Log.i(TAG, "onConnected")
             updateConnectedUI(conference)
 
             // Starting from Android 14, specifying a foreground service type is required to use the microphone in the background.
             // NotificationService requirements have been implemented based on the targeting version.
             // https://developer.android.com/about/versions/14/changes/fgs-types-required#microphone
-            NotificationService.showOngoingSession(this@MainActivity)
+            GroupAudioNotificationService.showOngoingSession(this@GroupAudioMainActivity)
         }
 
         @SuppressLint("SetTextI18n")
         override fun onDisconnected(conference: PlanetKitConference, param: PlanetKitDisconnectedParam) {
             val message = "Disconnected (${param.reason})"
-            Log.i(Constants.LOG_TAG, message)
+            Log.i(TAG, message)
             switchToConnectedUI(false)
             binding.connectionState.text = message
             mConference = null
-            NotificationService.clear(this@MainActivity)
+            GroupAudioNotificationService.clear(this@GroupAudioMainActivity)
         }
 
         @SuppressLint("SetTextI18n")
         override fun onPeerListUpdated(param: PlanetKitConferencePeerListUpdatedParam) {
-            Log.i(Constants.LOG_TAG, "onPeerListUpdated: ${param.totalPeerCnt}")
+            Log.i(TAG, "onPeerListUpdated: ${param.totalPeerCnt}")
             binding.conferenceConnected.tvParticipantCount.text = "${param.totalPeerCnt + 1}"
         }
     }
@@ -121,14 +117,12 @@ class MainActivity : AppCompatActivity() {
         binding.conferenceConnected.tvRoomId.text = conference.roomId
         binding.conferenceConnected.tvParticipantCount.text = "1"
         binding.connectionState.text = "Connected"
-
         updateAudioRouteUI(conference)
     }
 
     private fun updateAudioRouteUI(conference: PlanetKitConference) {
         val connectLayout = binding.conferenceConnected
         val audioSwitch = conference.getAudioSwitch()
-
         val availableRoutes = audioSwitch.availableAudioRoutes
         connectLayout.routeAudioBtnBt.isEnabled = availableRoutes.contains(PlanetKitAudioRoute.BLUETOOTH) == true
         connectLayout.routeAudioBtnPlugged.isEnabled = availableRoutes.contains(PlanetKitAudioRoute.PLUGGED) == true
@@ -182,5 +176,9 @@ class MainActivity : AppCompatActivity() {
             binding.conferenceInput.root.visibility = View.VISIBLE
             binding.conferenceConnected.root.visibility = View.GONE
         }
+    }
+
+    companion object {
+        const val TAG = "GroupAudioMainActivity"
     }
 }

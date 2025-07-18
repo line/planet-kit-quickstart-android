@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "QuickStartAndroid"
 include ':groupAudioCall'
+include ':groupVideoCall'
+include ':common'

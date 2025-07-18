@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:showIn="@layout/group_audio_activity_main"
-    tools:context="com.linecorp.planetkit.quickstart.groupAudioCall.GroupAudioMainActivity"
+    tools:showIn="@layout/group_video_main_activity"
+    tools:context="com.linecorp.planetkit.quickstart.groupVideoCall.GroupVideoMainActivity"
     >
 
     <TextView
